@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 映射文件与持久化接口通过namespace属性进行关联，-->
+<mapper namespace="com.ordersys.dao.FoodDao">
+  	<resultMap id="FoodMap" type="Food">
+  		<id column="id" property="id"></id>
+  		<result column="foodName" property="name" />
+       	<result column="price" property="price" />
+       	<result column="remark" property="remark" />
+       	<result column="img" property="img" />
+  		<association property="type" column="foodType_id" select="com.ordersys.dao.FoodTypeDao.findById"></association>
+  	</resultMap>
+  	
+ 
+    <select id="All" parameterType="map" resultMap="FoodMap">
+    	select * from food 
+    	<if test="name!=null">
+    	   WHERE foodName LIKE '%${name}%' 
+    	 </if>
+    	 limit #{off},#{size}
+    </select>
+   
+    <select id="getCount" resultType="int"  parameterType="map">
+    	SELECT COUNT(1) FROM food 
+    	<if test="name!=null">
+    	   WHERE foodName LIKE '%${name}%'
+    	 </if>
+    	
+    </select>
+ 	
+ 	<select id="ById" resultMap="FoodMap" parameterType="int">
+ 		select * from food where id=#{id}
+ 	</select>
+</mapper> 

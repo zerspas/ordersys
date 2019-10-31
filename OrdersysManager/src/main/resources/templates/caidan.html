@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>无线点餐平台</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/page_common.js"></script>
+<link href="css/common_style_blue.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="css/index_1.css" />
+<link href="css/index.css" rel="stylesheet" type="text/css" />
+</head>
+<body style="text-align: center">
+	<div id="all">
+		<div id="menu" >
+			<!-- 显示菜品的div -->
+			<div id="top" >
+				<ul>
+					<li  th:each="f:${pu.list}" >
+						<dl>
+							<dt>
+								<a th:href="@{xiangx(id=${f.id})}">
+									<img th:src="@{${f.img}}" width="214px" height="145px"   />
+								</a>
+							</dt>
+							<dd class="f1">
+								<span th:text="${f.name}"></span>
+							</dd>
+							<dd class="f2">
+								&yen;<span th:text="${f.price}"></span>
+							</dd>
+						</dl>
+					</li>
+				</ul>
+			</div>
+			
+			<!-- 底部分页导航条div -->
+			<div id="foot">
+				<a th:href="@{/list(index=1)}">首页</a>
+	 	  		<a th:href="@{/list(index=${pu.pageIndex>1?pu.pageIndex-1:1})}">上一页</a>
+	 	  		<a th:href="@{/list(index=${pu.pageIndex<pu.pageNumber?pu.pageIndex+1:pu.pageNumber})}">下一页</a>
+	 	  		<a th:href="@{/list(index=${pu.pageNumber})}">尾页</a>
+			</div>
+		</div>
+		<!-- 右边菜系列表，菜品搜索框  -->
+		<div id="dish_class">
+			<div id="dish_top">
+				<ul>
+				<li class="dish_num"></li>
+					<li>
+						<a href="clientOrderList.html">
+							<img src="images/call2.gif" />
+						</a>
+					</li>
+				</ul>
+			</div>
+
+			<div id="dish_2">
+				<ul>
+						<li>
+							<a href="caidan.html">粤菜</a>
+						</li>
+						<li>
+							<a href="chuancai.html">酒水</a>
+						</li>
+				</ul>
+			</div>
+			<div id="dish_3">
+				<!-- 搜索菜品表单  -->
+				<form th:action="@{list}" method="post">
+					<table width="166px">
+						<tr>
+							<td>
+								<input type="text" id="dish_name" name="name" class="select_value"  /> 
+								<input type="hidden" value="selectFood" name="method">
+							</td>
+						</tr>
+						<tr>
+							<td><input type="submit" id="sub" value="" /></td>
+						</tr>
+						<tr>
+							<td>
+								<a href="#">
+									<img src="images/look.gif" />
+								</a>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+		
+	</div>
+	
+	
+</body>
+
+</html>
