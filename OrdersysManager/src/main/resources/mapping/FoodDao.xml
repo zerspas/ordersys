@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="getCount" resultType="int"  parameterType="map">
     	SELECT COUNT(1) FROM food 
     	<if test="name!=null">
-    	   WHERE foodName LIKE '%${name}%'
+    	   WHERE foodName LIKE %${name}%
     	 </if>
     	
     </select>
